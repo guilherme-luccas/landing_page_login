@@ -1,5 +1,5 @@
 //REACT
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //NEXT
 import Image from "next/image";
@@ -31,6 +31,8 @@ import Background from "../src/assets/background.jpg";
 //FORM
 import { useFormik, Form, FormikProvider } from "formik";
 import * as Yup from "yup";
+//AUTH
+import { useSession, signIn, signOut } from "next-auth/react";
 
 type InitialValues = {
   email: string;
@@ -43,6 +45,8 @@ enum CREDENTIALS {
 }
 
 const Home = () => {
+  const { data } = useSession();
+
   const theme = useTheme();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -79,6 +83,14 @@ const Home = () => {
   });
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
+
+  useEffect(() => {
+    if (data) {
+      router.push({
+        pathname: "/dashboard",
+      });
+    }
+  }, [data]);
 
   return (
     <Stack
@@ -207,6 +219,7 @@ const Home = () => {
                   Entrar
                 </Button>
                 <Button
+                  onClick={() => signIn()}
                   startIcon={<GoogleIcon />}
                   variant="contained"
                   sx={{ width: "100%" }}

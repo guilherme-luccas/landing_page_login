@@ -1,8 +1,12 @@
 //REACT
 import { useEffect, useState } from "react";
 
+//NEXT
+import { useRouter } from "next/router";
+
 //MATERIAL UI
 import {
+  Button,
   Container,
   Table,
   TableBody,
@@ -17,6 +21,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 //API
 import { api } from "../src/services/api";
+//AUTH
+import { useSession, signOut } from "next-auth/react";
 
 type ASSETS_RESPONSE = {
   Asset: "string";
@@ -28,12 +34,13 @@ export default function Dashboard() {
   const [assets, setAssets] = useState<ASSETS_RESPONSE[]>([]);
   const [loading, setLoading] = useState(true);
   const theme = useTheme();
+  const { data } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     async function getAssets() {
       try {
         const response = await api.get("/getassets");
-        console.log(response.data.result);
         setAssets(response.data.result ?? []);
       } catch (e) {
         console.log(e);
@@ -43,7 +50,13 @@ export default function Dashboard() {
     }
     getAssets();
   }, []);
-
+  useEffect(() => {
+    if (!data) {
+      router.push({
+        pathname: "/",
+      });
+    }
+  }, [data]);
   return (
     <Container
       sx={{
@@ -59,34 +72,39 @@ export default function Dashboard() {
       {loading ? (
         <CircularProgress />
       ) : assets?.length > 0 ? (
-        <TableContainer sx={{ width: { xs: "90%", md: "50%" } }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">NOME</TableCell>
-                <TableCell align="center">ABREVIAÇÃO</TableCell>
-                <TableCell align="center">STATUS</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {assets?.map((asset, i) => {
-                return (
-                  <TableRow key={i}>
-                    <TableCell sx={{ width: "33%" }} align="center">
-                      {asset.AssetLong}
-                    </TableCell>
-                    <TableCell sx={{ width: "33%" }} align="center">
-                      {asset.Asset}
-                    </TableCell>
-                    <TableCell sx={{ width: "33%" }} align="center">
-                      {asset?.IsActive ? "Ativo" : "teste"}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <>
+          <TableContainer sx={{ width: { xs: "90%", md: "50%" } }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">NOME</TableCell>
+                  <TableCell align="center">ABREVIAÇÃO</TableCell>
+                  <TableCell align="center">STATUS</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {assets?.map((asset, i) => {
+                  return (
+                    <TableRow key={i}>
+                      <TableCell sx={{ width: "33%" }} align="center">
+                        {asset.AssetLong}
+                      </TableCell>
+                      <TableCell sx={{ width: "33%" }} align="center">
+                        {asset.Asset}
+                      </TableCell>
+                      <TableCell sx={{ width: "33%" }} align="center">
+                        {asset?.IsActive ? "Ativo" : "teste"}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Button onClick={() => signOut()} sx={{ mt: 2 }}>
+            Logout
+          </Button>
+        </>
       ) : (
         <Typography sx={{ color: "red" }}>
           Não possível carregar lista
