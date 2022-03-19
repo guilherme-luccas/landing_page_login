@@ -217,8 +217,9 @@ const Home = () => {
                     variant="contained"
                     sx={{
                       width: "100%",
-                      height: 50,
+                      height: 60,
                       fontWeight: "bold",
+                      color: "#4776ff",
                       backgroundColor: "#FFD700",
                       "&:hover": {
                         background: "#FFD700",
@@ -231,7 +232,11 @@ const Home = () => {
                     onClick={() => signIn()}
                     startIcon={<GoogleIcon />}
                     variant="contained"
-                    sx={{ width: "100%", height: 50, fontWeight: "bold" }}
+                    sx={{
+                      width: "100%",
+                      height: 60,
+                      fontWeight: "bold",
+                    }}
                   >
                     Logar com Google
                   </Button>
