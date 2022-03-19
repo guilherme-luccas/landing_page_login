@@ -108,7 +108,7 @@ const Home = () => {
           >
             <Image
               src={logo}
-              alt="Clara net logo, Cloud with power on button"
+              alt="Um C dourado, logo da cripto moeda"
               width={100}
               height={100}
             />

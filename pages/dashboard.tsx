@@ -1,3 +1,7 @@
+//REACT
+import { useEffect, useState } from "react";
+
+//MATERIAL UI
 import {
   Container,
   Table,
@@ -9,8 +13,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
-import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+
+//API
 import { api } from "../src/services/api";
 
 type ASSETS_RESPONSE = {
