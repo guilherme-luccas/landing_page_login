@@ -230,7 +230,7 @@ const Home = () => {
       >
         <Image
           alt="Employes"
-          src="/../public/background.jpg"
+          src="../src/assets/background.jpg"
           layout="fill"
           objectFit="cover"
         />
