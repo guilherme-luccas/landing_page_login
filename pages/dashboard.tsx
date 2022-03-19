@@ -57,7 +57,6 @@ export default function Dashboard() {
       });
     }
   }, [data, pid]);
-  console.log(data);
   return (
     <Container
       sx={{
