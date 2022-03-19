@@ -10,4 +10,5 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  secret: "LlKq6ZtYbr+hadasdasdas2eAASAJIsFo4hrfCx5mLg=",
 });
