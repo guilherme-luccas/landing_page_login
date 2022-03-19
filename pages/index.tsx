@@ -140,7 +140,6 @@ const Home = () => {
             </Stack>
 
             <Stack
-              spacing={2}
               sx={{
                 width: { xs: "80%", sm: "50%", md: "70%", lg: "50%" },
                 alignItems: "center",
@@ -200,9 +199,7 @@ const Home = () => {
                   <Stack direction="row" sx={{ alignItems: "center" }}>
                     <Checkbox />
 
-                    <Typography gutterBottom={false} sx={{}}>
-                      Lembrar-me
-                    </Typography>
+                    <Typography gutterBottom={false}>Lembrar-me</Typography>
                   </Stack>
                   <Button
                     onClick={() => handleForgotPassword()}
@@ -214,12 +211,13 @@ const Home = () => {
                 {loginError && (
                   <Typography sx={{ color: "red" }}>{loginError}</Typography>
                 )}
-                <Stack spacing={1} sx={{ alignItems: "center" }}>
+                <Stack spacing={1} sx={{ alignItems: "center", mt: 2 }}>
                   <Button
                     type="submit"
                     variant="contained"
                     sx={{
                       width: "100%",
+                      height: 50,
                       fontWeight: "bold",
                       backgroundColor: "#FFD700",
                       "&:hover": {
@@ -233,7 +231,7 @@ const Home = () => {
                     onClick={() => signIn()}
                     startIcon={<GoogleIcon />}
                     variant="contained"
-                    sx={{ width: "100%" }}
+                    sx={{ width: "100%", height: 50, fontWeight: "bold" }}
                   >
                     Logar com Google
                   </Button>
@@ -251,7 +249,7 @@ const Home = () => {
         }}
       >
         <Image
-          alt="Employes"
+          alt="Moeda dourada com um b no meio"
           src={Background}
           layout="fill"
           objectFit="cover"
