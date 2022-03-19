@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 //NEXT
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 //MATERIAL-UI
 import {
@@ -107,6 +108,10 @@ const Home = () => {
         height: "100vh",
       }}
     >
+      <Head>
+        <title>Cripto Wallet</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <FormikProvider value={formik}>
         {forgotPassword ? (
           <ForgotPassword handlePassword={handleForgotPassword} />
