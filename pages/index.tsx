@@ -109,7 +109,7 @@ const Home = () => {
       }}
     >
       <Head>
-        <title>Cripto Wallet</title>
+        <title>Cripto Coins</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <FormikProvider value={formik}>
