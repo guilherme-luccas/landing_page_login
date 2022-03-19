@@ -65,11 +65,9 @@ export default function Dashboard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {assets?.map((asset) => {
-                console.log("asset", asset);
-
+              {assets?.map((asset, i) => {
                 return (
-                  <TableRow>
+                  <TableRow key={i}>
                     <TableCell align="center">{asset.AssetLong}</TableCell>
                     <TableCell align="center">{asset.Asset}</TableCell>
                     <TableCell align="center">
