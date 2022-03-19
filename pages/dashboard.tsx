@@ -103,7 +103,7 @@ export default function Dashboard() {
           </TableContainer>
           {data && (
             <>
-              <Typography sx={{ fontWeight: "bold", color: "gray" }}>
+              <Typography sx={{ fontWeight: "bold", color: "gray", mt: 1 }}>
                 Nome: {data?.user?.name}
               </Typography>
               <Typography sx={{ fontWeight: "bold", color: "gray" }}>
