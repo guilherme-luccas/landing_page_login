@@ -28,7 +28,6 @@ export default function Dashboard() {
   const [assets, setAssets] = useState<ASSETS_RESPONSE[]>([]);
   const [loading, setLoading] = useState(true);
   const theme = useTheme();
-  console.log(assets);
 
   useEffect(() => {
     async function getAssets() {
@@ -73,9 +72,13 @@ export default function Dashboard() {
               {assets?.map((asset, i) => {
                 return (
                   <TableRow key={i}>
-                    <TableCell align="center">{asset.AssetLong}</TableCell>
-                    <TableCell align="center">{asset.Asset}</TableCell>
-                    <TableCell align="center">
+                    <TableCell sx={{ width: "33%" }} align="center">
+                      {asset.AssetLong}
+                    </TableCell>
+                    <TableCell sx={{ width: "33%" }} align="center">
+                      {asset.Asset}
+                    </TableCell>
+                    <TableCell sx={{ width: "33%" }} align="center">
                       {asset?.IsActive ? "Ativo" : "teste"}
                     </TableCell>
                   </TableRow>
