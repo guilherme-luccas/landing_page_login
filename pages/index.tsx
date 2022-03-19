@@ -26,6 +26,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import GoogleIcon from "@mui/icons-material/Google";
 import Logo from "../src/assets/criptologo.png";
+import Background from "../src/assets/background.jpg";
 
 //FORM
 import { useFormik, Form, FormikProvider } from "formik";
@@ -230,7 +231,7 @@ const Home = () => {
       >
         <Image
           alt="Employes"
-          src="../src/assets/background.jpg"
+          src={Background}
           layout="fill"
           objectFit="cover"
         />
