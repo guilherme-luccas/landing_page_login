@@ -102,6 +102,17 @@ export default function Dashboard() {
               </TableBody>
             </Table>
           </TableContainer>
+          {data && (
+            <>
+              <Typography sx={{ fontWeight: "bold" }}>
+                {data?.user?.email}
+              </Typography>
+              <Typography sx={{ fontWeight: "bold" }}>
+                {data?.user?.name}
+              </Typography>
+            </>
+          )}
+
           <Button onClick={() => signOut()} sx={{ mt: 2 }}>
             Logout
           </Button>
