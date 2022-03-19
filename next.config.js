@@ -12,8 +12,3 @@ module.exports = {
     disableStaticImages: true,
   },
 };
-module.exports = {
-  images: {
-    formats: [".png", ".jpg"],
-  },
-};
