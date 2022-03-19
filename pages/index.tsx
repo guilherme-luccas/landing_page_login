@@ -69,7 +69,6 @@ const Home = () => {
         ) {
           router.push({
             pathname: "/dashboard",
-            query: { returnUrl: router.asPath },
           });
         } else {
           setLoginError("Login/Senha inválidos");
