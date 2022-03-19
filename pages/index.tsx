@@ -25,7 +25,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import GoogleIcon from "@mui/icons-material/Google";
-import logo from "../public/criptologo.png";
+import Logo from "../public/criptologo.png";
 
 //FORM
 import { useFormik, Form, FormikProvider } from "formik";
@@ -107,7 +107,7 @@ const Home = () => {
             }}
           >
             <Image
-              src={logo}
+              src={Logo}
               alt="Um C dourado, logo da cripto moeda"
               width={100}
               height={100}
