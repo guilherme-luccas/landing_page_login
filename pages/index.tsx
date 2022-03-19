@@ -16,8 +16,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-// import Switch from "@mui/material/Switch";
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
 
 //ICONS & IMAGES
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -32,7 +30,7 @@ import Background from "../src/assets/background.jpg";
 import { useFormik, Form, FormikProvider } from "formik";
 import * as Yup from "yup";
 //AUTH
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 type InitialValues = {
   email: string;
@@ -47,14 +45,16 @@ enum CREDENTIALS {
 const Home = () => {
   const { data } = useSession();
 
-  const theme = useTheme();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  const [email, setEmail] = useState("");
   const [loginError, setLoginError] = useState("");
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
+  console.log(email);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required("Um email válido é necessário"),
@@ -67,14 +67,14 @@ const Home = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
+      setEmail(values.email);
+
       try {
         if (
           CREDENTIALS.email === values.email &&
           CREDENTIALS.password === values.password
         ) {
-          router.push({
-            pathname: "/dashboard",
-          });
+          console.log("Logou");
         } else {
           setLoginError("Login/Senha inválidos");
         }
@@ -85,12 +85,13 @@ const Home = () => {
   const { errors, touched, handleSubmit, getFieldProps } = formik;
 
   useEffect(() => {
-    if (data) {
+    if (data || email === CREDENTIALS.email) {
       router.push({
         pathname: "/dashboard",
+        query: { pid: email },
       });
     }
-  }, [data]);
+  }, [data, email]);
 
   return (
     <Stack
@@ -226,10 +227,6 @@ const Home = () => {
                 >
                   Logar com Google
                 </Button>
-                {/* <Stack direction="row" sx={{ alignItems: "center" }}>
-                  <Typography>Trocar de tema</Typography>
-                  <Switch />
-                </Stack> */}
               </Stack>
             </Form>
           </Stack>

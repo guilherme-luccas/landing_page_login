@@ -16,7 +16,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+
 import CircularProgress from "@mui/material/CircularProgress";
 
 //API
@@ -33,9 +33,9 @@ type ASSETS_RESPONSE = {
 export default function Dashboard() {
   const [assets, setAssets] = useState<ASSETS_RESPONSE[]>([]);
   const [loading, setLoading] = useState(true);
-  const theme = useTheme();
   const { data } = useSession();
   const router = useRouter();
+  const { pid } = router.query;
 
   useEffect(() => {
     async function getAssets() {
@@ -51,12 +51,12 @@ export default function Dashboard() {
     getAssets();
   }, []);
   useEffect(() => {
-    if (!data) {
+    if (!data && !pid) {
       router.push({
         pathname: "/",
       });
     }
-  }, [data]);
+  }, [data, pid]);
   return (
     <Container
       sx={{
