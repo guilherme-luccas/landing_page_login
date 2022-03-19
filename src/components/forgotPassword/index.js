@@ -28,7 +28,7 @@ export default function ForgotPassword({ handlePassword }) {
           marginBottom: 4,
         }}
       >
-        <Typography variant="h5" sx={{ color: "gray" }}>
+        <Typography variant="h5" sx={{ color: "gray", textAlign: "center" }}>
           Digite seu email para receber nova senha!
         </Typography>
       </Stack>
