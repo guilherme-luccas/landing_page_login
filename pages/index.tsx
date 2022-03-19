@@ -32,6 +32,8 @@ import * as Yup from "yup";
 //AUTH
 import { useSession, signIn } from "next-auth/react";
 
+import ForgotPassword from "../src/components/forgotPassword";
+
 type InitialValues = {
   email: string;
   password: string;
@@ -47,6 +49,7 @@ const Home = () => {
 
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -54,7 +57,6 @@ const Home = () => {
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
-  console.log(email);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required("Um email válido é necessário"),
@@ -83,7 +85,9 @@ const Home = () => {
   });
 
   const { errors, touched, handleSubmit, getFieldProps } = formik;
-
+  function handleForgotPassword() {
+    setForgotPassword(!forgotPassword);
+  }
   useEffect(() => {
     if (data || email === CREDENTIALS.email) {
       router.push({
@@ -102,135 +106,142 @@ const Home = () => {
       }}
     >
       <FormikProvider value={formik}>
-        <Box
-          sx={{
-            width: { xs: "100%", md: "50%" },
-            backgroundColor: "white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Stack
-            spacing={1}
+        {forgotPassword ? (
+          <ForgotPassword handlePassword={handleForgotPassword} />
+        ) : (
+          <Box
             sx={{
-              alignItems: "center",
+              width: { xs: "100%", md: "50%" },
+              backgroundColor: "white",
+              display: "flex",
+              flexDirection: "column",
               justifyContent: "center",
-              marginBottom: 4,
+              alignItems: "center",
             }}
           >
-            <Image
-              src={Logo}
-              alt="Um C dourado, logo da cripto moeda"
-              width={100}
-              height={100}
-            />
-
-            <Typography variant="h3" sx={{ color: "gray" }}>
-              Bem-vindo!
-            </Typography>
-          </Stack>
-
-          <Stack
-            spacing={2}
-            sx={{
-              width: { xs: "80%", sm: "50%", md: "70%", lg: "50%" },
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-              <TextField
-                {...getFieldProps("email")}
-                placeholder="E-mail"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <MailOutlineIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                variant="filled"
-                sx={{ width: "100%", mb: 2 }}
-                error={Boolean(touched.email && errors.email)}
-                helperText={touched.email && errors.email}
+            <Stack
+              spacing={1}
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 4,
+              }}
+            >
+              <Image
+                src={Logo}
+                alt="Um C dourado, logo da cripto moeda"
+                width={100}
+                height={100}
               />
-              <TextField
-                type={showPassword ? "text" : "password"}
-                {...getFieldProps("password")}
-                placeholder="Senha"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockIcon />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <IconButton onClick={handleShowPassword} edge="end">
-                      {showPassword ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
-                  ),
-                }}
-                variant="filled"
-                sx={{ width: "100%" }}
-                error={Boolean(touched.password && errors.password)}
-                helperText={touched.password && errors.password}
-              />
-              <Stack
-                direction="row"
-                spacing={2}
-                sx={{
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Stack direction="row" sx={{ alignItems: "center" }}>
-                  <Checkbox />
 
-                  <Typography gutterBottom={false} sx={{}}>
-                    Lembrar-me
-                  </Typography>
-                </Stack>
-                <Button sx={{ color: "red", fontSize: 11, fontWeight: "bold" }}>
-                  Esqueci minha senha
-                </Button>
-              </Stack>
-              {loginError && (
-                <Typography sx={{ color: "red" }}>{loginError}</Typography>
-              )}
-              <Stack spacing={1} sx={{ alignItems: "center" }}>
-                <Button
-                  type="submit"
-                  variant="contained"
+              <Typography variant="h3" sx={{ color: "gray" }}>
+                Bem-vindo!
+              </Typography>
+            </Stack>
+
+            <Stack
+              spacing={2}
+              sx={{
+                width: { xs: "80%", sm: "50%", md: "70%", lg: "50%" },
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                <TextField
+                  {...getFieldProps("email")}
+                  placeholder="E-mail"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <MailOutlineIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="filled"
+                  sx={{ width: "100%", mb: 2 }}
+                  error={Boolean(touched.email && errors.email)}
+                  helperText={touched.email && errors.email}
+                />
+                <TextField
+                  type={showPassword ? "text" : "password"}
+                  {...getFieldProps("password")}
+                  placeholder="Senha"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <IconButton onClick={handleShowPassword} edge="end">
+                        {showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
+                      </IconButton>
+                    ),
+                  }}
+                  variant="filled"
+                  sx={{ width: "100%" }}
+                  error={Boolean(touched.password && errors.password)}
+                  helperText={touched.password && errors.password}
+                />
+                <Stack
+                  direction="row"
+                  spacing={2}
                   sx={{
                     width: "100%",
-                    fontWeight: "bold",
-                    backgroundColor: "#FFD700",
-                    "&:hover": {
-                      background: "#FFD700",
-                    },
+                    alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
-                  Entrar
-                </Button>
-                <Button
-                  onClick={() => signIn()}
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                  sx={{ width: "100%" }}
-                >
-                  Logar com Google
-                </Button>
-              </Stack>
-            </Form>
-          </Stack>
-        </Box>
+                  <Stack direction="row" sx={{ alignItems: "center" }}>
+                    <Checkbox />
+
+                    <Typography gutterBottom={false} sx={{}}>
+                      Lembrar-me
+                    </Typography>
+                  </Stack>
+                  <Button
+                    onClick={() => handleForgotPassword()}
+                    sx={{ color: "red", fontSize: 11, fontWeight: "bold" }}
+                  >
+                    Esqueci minha senha
+                  </Button>
+                </Stack>
+                {loginError && (
+                  <Typography sx={{ color: "red" }}>{loginError}</Typography>
+                )}
+                <Stack spacing={1} sx={{ alignItems: "center" }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      width: "100%",
+                      fontWeight: "bold",
+                      backgroundColor: "#FFD700",
+                      "&:hover": {
+                        background: "#FFD700",
+                      },
+                    }}
+                  >
+                    Entrar
+                  </Button>
+                  <Button
+                    onClick={() => signIn()}
+                    startIcon={<GoogleIcon />}
+                    variant="contained"
+                    sx={{ width: "100%" }}
+                  >
+                    Logar com Google
+                  </Button>
+                </Stack>
+              </Form>
+            </Stack>
+          </Box>
+        )}
       </FormikProvider>
       <Stack
         sx={{
